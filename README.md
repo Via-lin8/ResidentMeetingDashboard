@@ -1,20 +1,18 @@
-# 住院醫師座談會成效追蹤系統
+# 住院醫師座談會成效追蹤儀表板
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-blue)](https://github.com/features/pages)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
-[![Last Updated](https://img.shields.io/badge/Last%20Updated-2026--01--26-blue)]()
 
 ## 📊 概述
 
-住院醫師座談會成效追蹤系統是一個完整的互動式多頁面應用程式，用於實時監控座談會提案進度與成效。
+這是一個基於 Manus 設計的住院醫師座談會成效追蹤儀表板。採用莫蘭迪色系設計，提供實時的座談會成效監控和追蹤管理。
 
 ### ✨ 主要特點
 
-- 🎯 **2 個互動頁面** - 首頁儀表板 + 詳細分析頁面
-- 🔄 **實時資料更新** - 自動從 Google Sheets 同步資料
-- 📈 **豐富的圖表** - 圓餅圖、柱狀圖、進度條等多種可視化
+- 🎨 **莫蘭迪色系設計** - 專業、優雅的視覺風格
+- 📊 **實時資料更新** - 自動從 Google Sheets 同步資料
+- 📈 **豐富的圖表** - 柱狀圖展示議題類別統計
 - 📋 **完整追蹤詳情** - 每個提案的完整進度記錄
-- 👥 **出席人員管理** - 座談會與會人員資訊展示
 - 📱 **響應式設計** - 完美支援各種設備
 - ⚡ **快速載入** - 靜態網站，無伺服器成本
 - 🌐 **公開訪問** - 無需登入
@@ -23,25 +21,25 @@
 
 ## 🚀 快速開始
 
-### 最快的部署方式（5 分鐘）
+### 部署到 GitHub Pages（5 分鐘）
 
 #### 1. 準備檔案
 ```bash
-mkdir resident-meeting-dashboard
-cd resident-meeting-dashboard
+mkdir ResidentMeetingDashboard
+cd ResidentMeetingDashboard
 ```
 
 複製以下檔案到此資料夾：
-- `index.html`
-- `README.md`
+- `index.html` - 主應用程式
+- `README.md` - 專案說明
 
 #### 2. 上傳到 GitHub
 ```bash
 git init
 git add .
-git commit -m "Initial commit"
+git commit -m "Initial commit: Add resident meeting dashboard"
 git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/resident-meeting-dashboard.git
+git remote add origin https://github.com/YOUR_USERNAME/ResidentMeetingDashboard.git
 git push -u origin main
 ```
 
@@ -50,67 +48,28 @@ git push -u origin main
 - 選擇 "Deploy from a branch" > "main" > "/ (root)"
 - 點擊 Save
 
-#### 4. 配置 API URL
-編輯 `index.html` 第 552 行，將 `API_URL` 替換為您的 Google Apps Script Web App URL
-
-#### 完成！
-訪問：`https://YOUR_USERNAME.github.io/resident-meeting-dashboard/`
-
-詳細步驟請參考 [GITHUB_MULTIPAGE_DEPLOYMENT.md](GITHUB_MULTIPAGE_DEPLOYMENT.md)
+#### 4. 訪問您的儀表板
+```
+https://YOUR_USERNAME.github.io/ResidentMeetingDashboard/
+```
 
 ---
 
-## 📖 頁面功能
+## 📖 功能說明
 
-### 📊 首頁儀表板
+### 統計卡片
+- **整體達成率** - 已結案提案佔比
+- **待決議** - 待決議提案數量
+- **進行中** - 進行中提案數量
+- **已結案** - 已結案提案數量
 
-**統計卡片**
-- 待決議提案數
-- 進行中提案數
-- 已結案提案數
-- 完成率百分比
+### 圖表展示
+- **議題類別統計** - 柱狀圖展示各類別提案數量
 
-**圖表展示**
-- 議題類別圓餅圖 - 各類別提案分布
-- 提案狀態柱狀圖 - 各狀態提案數量
-
-**詳細列表**
-- 追蹤項目詳情 - 每個提案的完整信息
-- 出席人員名單 - 座談會與會人員資訊
-
-### 📈 詳細分析頁面
-
-**統計概覽**
-- 總提案數
-- 待決議數量
-- 進行中數量
-- 已結案數量
-
-**分析展示**
-- 議題類別分析 - 帶進度條的類別統計
-- 議題分布圓餅圖 - 視覺化類別比例
-- 提案詳細分析 - 完整的提案信息
-
----
-
-## 🎨 設計特點
-
-### 色彩方案
-- 主色調：藍色（#4a90e2）
-- 成功色：綠色（#27ae60）
-- 警告色：橙色（#f39c12）
-- 危險色：紅色（#e74c3c）
-
-### 排版
-- 標題：大號、加粗、深色
-- 正文：中等大小、易讀、灰色
-- 標籤：小號、加粗、彩色背景
-
-### 互動效果
-- 卡片懸停效果 - 上升 + 陰影
-- 平滑頁面轉換 - 淡入動畫
-- 按鈕反饋 - 顏色變化
-- 圖表動畫 - 平滑繪製
+### 追蹤列表
+- 所有提案的詳細信息
+- 包括提案者、負責窗口、追蹤進度等
+- 按狀態分色展示（待決議、進行中、已結案）
 
 ---
 
@@ -152,44 +111,22 @@ git push -u origin main
 
 ---
 
-## 📋 檔案結構
+## 🎨 設計特點
 
-```
-resident-meeting-dashboard/
-├── index.html                          # 主應用程式（HTML + CSS + JS）
-├── README.md                           # 專案說明
-├── GITHUB_MULTIPAGE_DEPLOYMENT.md      # 詳細部署指南
-├── GITHUB_QUICK_START.md               # 快速開始指南
-├── DASHBOARD_USER_GUIDE.md             # 使用指南
-└── [其他文檔]
-```
+### 色彩方案
+- **待決議**：#b8a898（莫蘭迪棕）
+- **進行中**：#9ba8b8（莫蘭迪藍）
+- **已結案**：#a8b8a0（莫蘭迪綠）
 
----
+### 排版
+- **標題**：Noto Sans TC 700 weight
+- **正文**：Noto Sans TC 400 weight
+- **強調**：Noto Sans TC 600 weight
 
-## 🎯 使用方式
-
-### 基本操作
-
-1. **訪問應用程式**
-   - 在瀏覽器中輸入應用程式 URL
-
-2. **瀏覽首頁儀表板**
-   - 查看統計卡片
-   - 查看圖表
-   - 向下滾動查看詳細列表
-
-3. **切換到詳細分析頁面**
-   - 點擊導航欄的「2025/12/24 成效分析」按鈕
-
-4. **更新資料**
-   - 點擊「重新整理」按鈕
-   - 或等待自動更新
-
-### 進階操作
-
-- **搜尋內容** - 使用瀏覽器的查找功能（Ctrl+F）
-- **列印頁面** - 使用瀏覽器的列印功能（Ctrl+P）
-- **截圖** - 使用瀏覽器的截圖工具
+### 互動效果
+- 卡片懸停效果 - 上升 + 陰影
+- 平滑過渡動畫
+- 按鈕反饋效果
 
 ---
 
@@ -197,7 +134,7 @@ resident-meeting-dashboard/
 
 ### 修改 API URL
 
-編輯 `index.html` 第 552 行：
+編輯 `index.html` 第 353 行：
 
 ```javascript
 const CONFIG = {
@@ -213,10 +150,6 @@ const CONFIG = {
 ```javascript
 REFRESH_INTERVAL: 10 * 60 * 1000  // 改為 10 分鐘
 ```
-
-### 修改顏色
-
-編輯 `index.html` 中的 `COLORS` 物件
 
 ---
 
@@ -236,13 +169,6 @@ REFRESH_INTERVAL: 10 * 60 * 1000  // 改為 10 分鐘
 1. 刷新頁面（Ctrl+F5）
 2. 檢查 Google Sheets 中是否有資料
 3. 檢查瀏覽器是否支援 JavaScript
-
-### 頁面切換不工作
-
-**解決方案**：
-1. 檢查瀏覽器控制台是否有錯誤
-2. 確保 JavaScript 已啟用
-3. 清除瀏覽器快取
 
 ---
 
@@ -265,8 +191,8 @@ REFRESH_INTERVAL: 10 * 60 * 1000  // 改為 10 分鐘
 
 ### 資料隱私
 - 應用程式是公開的
+- 任何人都可以訪問
 - 不要存放敏感個人信息
-- 如需限制訪問，使用 GitHub 私有儲存庫
 
 ### 資料備份
 定期備份：
@@ -275,93 +201,42 @@ REFRESH_INTERVAL: 10 * 60 * 1000  // 改為 10 分鐘
 
 ---
 
-## 🤝 貢獻
+## 📞 支援
 
-歡迎提交 Issue 和 Pull Request！
-
-### 報告問題
-在 GitHub 上提交 Issue，包含：
-- 問題描述
-- 重現步驟
-- 預期結果
-- 實際結果
-
-### 提交改進
-1. Fork 此儲存庫
-2. 建立新分支
-3. 提交更改
-4. 提交 Pull Request
+- 📖 [GitHub Pages 官方文檔](https://docs.github.com/en/pages)
+- 🐛 [GitHub Issues](../../issues)
+- 💬 [GitHub Discussions](../../discussions)
 
 ---
 
-## 📝 許可證
+## 📝 版本歷史
+
+### 版本 2.0（2026-01-28）
+- ✅ 採用 Manus 設計
+- ✅ 莫蘭迪色系
+- ✅ 優化的追蹤列表
+- ✅ 改進的圖表展示
+
+### 版本 1.0（2026-01-26）
+- ✅ 初始版本發佈
+- ✅ 基本功能實現
+
+---
+
+## 📄 許可證
 
 此專案採用 MIT 許可證。
 
 ---
 
-## 📞 支援
-
-- 📖 [詳細部署指南](GITHUB_MULTIPAGE_DEPLOYMENT.md)
-- 👥 [使用指南](DASHBOARD_USER_GUIDE.md)
-- 🐛 [GitHub Issues](../../issues)
-
----
-
-## 🎯 未來計劃
-
-- [ ] 新增篩選和搜尋功能
-- [ ] 新增資料匯出功能（PDF、Excel）
-- [ ] 新增深色模式
-- [ ] 新增多語言支援
-- [ ] 新增通知功能
-- [ ] 新增更多分析圖表
-
----
-
-## 📊 統計
-
-- 📄 代碼行數：~2000 行
-- 🎨 CSS 類別：60+ 個
-- 📦 外部依賴：1 個（Chart.js）
-- ⚡ 首屏加載時間：< 3 秒
-
----
-
 ## 🙏 致謝
 
-感謝所有貢獻者和使用者的支持！
+感謝 Manus 平台提供的優秀設計靈感。
 
 ---
 
-## 📅 更新日誌
+**最後更新**：2026-01-28
 
-### 版本 1.0（2026-01-26）
+**官方應用程式**：https://residash-f8ahzkga.manus.space
 
-- ✅ 初始版本發佈
-- ✅ 2 個互動頁面
-- ✅ 首頁儀表板
-- ✅ 詳細分析頁面
-- ✅ 圓餅圖和柱狀圖
-- ✅ 進度條視覺化
-- ✅ 響應式設計
-- ✅ 自動資料更新
-- ✅ GitHub Pages 部署
-
----
-
-**最後更新**：2026-01-26
-
-**維護者**：[您的名稱]
-
-**官方應用程式**：[您的應用程式 URL]
-
----
-
-## 快速連結
-
-- 🌐 [應用程式首頁](https://your-username.github.io/resident-meeting-dashboard/)
-- 📖 [部署指南](GITHUB_MULTIPAGE_DEPLOYMENT.md)
-- 👥 [使用指南](DASHBOARD_USER_GUIDE.md)
-- 🐛 [報告問題](../../issues)
-- 💬 [討論](../../discussions)
+**GitHub 儲存庫**：https://github.com/Via-lin8/ResidentMeetingDashboard
