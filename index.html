@@ -29,6 +29,33 @@
             padding: 2rem;
         }
 
+        /* 頁面容器 */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* 返回按鈕 */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #9ba8b8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            color: #7f8c8d;
+            transform: translateX(-4px);
+        }
+
         /* 頭部 */
         .header {
             margin-bottom: 2rem;
@@ -255,19 +282,117 @@
             line-height: 1.5;
         }
 
-        .progress-bar {
-            height: 6px;
-            background-color: rgb(232, 230, 227);
-            border-radius: 3px;
-            overflow: hidden;
-            margin-top: 0.5rem;
+        /* 詳細分析頁面特定樣式 */
+        .meeting-info {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: rgba(61, 61, 61, 0.08) 0px 2px 8px;
         }
 
-        .progress-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, rgb(168, 184, 160), rgb(155, 168, 184));
-            border-radius: 3px;
-            transition: width 0.3s ease;
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .info-icon {
+            font-size: 1.5rem;
+            color: #9ba8b8;
+        }
+
+        .info-content h3 {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .info-content p {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .department-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .dept-tag {
+            background-color: #a8b8a0;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .officials-section {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: rgba(61, 61, 61, 0.08) 0px 2px 8px;
+        }
+
+        .officials-section h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .official-item {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e8e6e3;
+        }
+
+        .official-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .official-title {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .official-name {
+            font-size: 1rem;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .category-section {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: rgba(61, 61, 61, 0.08) 0px 2px 8px;
+        }
+
+        .category-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #9ba8b8;
         }
 
         /* 加載狀態 */
@@ -317,6 +442,10 @@
             .btn {
                 width: 100%;
             }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* 頁腳 */
@@ -353,63 +482,189 @@
 </head>
 <body>
     <div class="container">
-        <!-- 頭部 -->
-        <div class="header">
-            <h1>住院醫師座談會成效追蹤儀表板</h1>
-            <p id="meeting-date">12/24/2025 座談會</p>
-        </div>
+        <!-- 首頁 -->
+        <div id="home-page" class="page active">
+            <!-- 頭部 -->
+            <div class="header">
+                <h1>住院醫師座談會成效追蹤儀表板</h1>
+                <p id="meeting-date">12/24/2025 座談會</p>
+            </div>
 
-        <!-- 按鈕組 -->
-        <div class="button-group">
-            <button class="btn btn-primary" id="meeting-btn">1141224座談會</button>
-            <button class="btn btn-secondary refresh-btn" onclick="loadData()">重新整理</button>
-        </div>
+            <!-- 按鈕組 -->
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="goToAnalysis()">1141224座談會</button>
+                <button class="btn btn-secondary refresh-btn" onclick="loadData()">重新整理</button>
+            </div>
 
-        <!-- 統計卡片 -->
-        <div class="stats-grid" id="stats-container">
-            <div class="card stat-card primary">
-                <div class="stat-label">整體達成率</div>
-                <div class="stat-value" id="completion-rate">11%</div>
-                <div class="stat-detail" id="completion-detail">1/9</div>
+            <!-- 統計卡片 -->
+            <div class="stats-grid" id="stats-container">
+                <div class="card stat-card primary">
+                    <div class="stat-label">整體達成率</div>
+                    <div class="stat-value" id="completion-rate">11%</div>
+                    <div class="stat-detail" id="completion-detail">1/9</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-label">待決議</div>
+                    <div class="stat-value" id="pending-count">2</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-label">進行中</div>
+                    <div class="stat-value" id="in-progress-count">6</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-label">已結案</div>
+                    <div class="stat-value" id="completed-count">1</div>
+                </div>
             </div>
-            <div class="card stat-card">
-                <div class="stat-label">待決議</div>
-                <div class="stat-value" id="pending-count">2</div>
-            </div>
-            <div class="card stat-card">
-                <div class="stat-label">進行中</div>
-                <div class="stat-value" id="in-progress-count">6</div>
-            </div>
-            <div class="card stat-card">
-                <div class="stat-label">已結案</div>
-                <div class="stat-value" id="completed-count">1</div>
-            </div>
-        </div>
 
-        <!-- 圖表區域 -->
-        <div class="chart-section">
-            <h2 class="section-title">議題類別統計</h2>
-            <div class="chart-container">
-                <div class="chart-wrapper">
-                    <canvas id="categoryChart"></canvas>
+            <!-- 圖表區域 -->
+            <div class="chart-section">
+                <h2 class="section-title">議題類別統計</h2>
+                <div class="chart-container">
+                    <div class="chart-wrapper">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 追蹤項目 -->
+            <div class="tracking-items">
+                <h2 class="section-title">追蹤項目</h2>
+                <div id="tracking-list" class="loading">
+                    <div class="spinner"></div>
+                    <p>載入中...</p>
+                </div>
+            </div>
+
+            <!-- 頁腳 -->
+            <div class="footer">
+                <p>Made with ❤️ for Resident Meeting Tracking</p>
+                <div class="last-update">
+                    最後更新：<span id="last-update-time">-</span>
                 </div>
             </div>
         </div>
 
-        <!-- 追蹤項目 -->
-        <div class="tracking-items">
-            <h2 class="section-title">追蹤項目</h2>
-            <div id="tracking-list" class="loading">
-                <div class="spinner"></div>
-                <p>載入中...</p>
-            </div>
-        </div>
+        <!-- 詳細分析頁面 -->
+        <div id="analysis-page" class="page">
+            <!-- 返回按鈕 -->
+            <a class="back-button" onclick="goToHome()">
+                <span>←</span>
+                <span>返回首頁</span>
+            </a>
 
-        <!-- 頁腳 -->
-        <div class="footer">
-            <p>Made with ❤️ for Resident Meeting Tracking</p>
-            <div class="last-update">
-                最後更新：<span id="last-update-time">-</span>
+            <!-- 頭部 -->
+            <div class="header">
+                <h1>2025/12/24 座談會成效分析</h1>
+            </div>
+
+            <!-- 座談會信息 -->
+            <div class="meeting-info">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-icon">📅</div>
+                        <div class="info-content">
+                            <h3>日期</h3>
+                            <p>2025/12/24</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">📍</div>
+                        <div class="info-content">
+                            <h3>地點</h3>
+                            <p>554會議室</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">👥</div>
+                        <div class="info-content">
+                            <h3>住院醫師出席</h3>
+                            <p>15 人</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="font-size: 0.9rem; color: #7f8c8d; font-weight: 500; margin-bottom: 0.75rem;">參與科部</h3>
+                    <div class="department-tags">
+                        <span class="dept-tag">兒科部</span>
+                        <span class="dept-tag">放射診斷科</span>
+                        <span class="dept-tag">復健部</span>
+                        <span class="dept-tag">解剖病理科</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 出席長官與主管 -->
+            <div class="officials-section">
+                <h2>出席長官與主管</h2>
+                <div class="official-item">
+                    <div class="official-title">主席：</div>
+                    <div class="official-name">陳志偉次專科主任</div>
+                </div>
+                <div class="official-item">
+                    <div class="official-title">指導長官：</div>
+                    <div class="official-name">湯宏仁副院長、陳志成教學副院長、廖家德部長</div>
+                </div>
+                <div class="official-item">
+                    <div class="official-title">教學主管：</div>
+                    <div class="official-name">劉雯副部長</div>
+                </div>
+                <div class="official-item">
+                    <div class="official-title">列席主管：</div>
+                    <div class="official-name">杜漢祥部長、吳惠美組長、歐陽良全組長、陳佳蓉組長、陳憶玲組長</div>
+                </div>
+                <div class="official-item">
+                    <div class="official-title">教學負責人：</div>
+                    <div class="official-name">黃筱倫備任主治醫師、柯景中主治醫師、朱彰堯主治醫師</div>
+                </div>
+            </div>
+
+            <!-- 統計卡片 -->
+            <div class="stats-grid">
+                <div class="card stat-card">
+                    <div class="stat-label">件總提案</div>
+                    <div class="stat-value" id="analysis-total">9</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-label">件進行中</div>
+                    <div class="stat-value" id="analysis-in-progress">6</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-label">件已結案</div>
+                    <div class="stat-value" id="analysis-completed">1</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-label">整體達成率</div>
+                    <div class="stat-value" id="analysis-rate">11%</div>
+                </div>
+            </div>
+
+            <!-- 議題類別統計 -->
+            <div class="chart-section">
+                <h2 class="section-title">議題類別統計</h2>
+                <div class="chart-container">
+                    <div class="chart-wrapper">
+                        <canvas id="analysisChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 議題追蹤現況 -->
+            <div class="tracking-items">
+                <h2 class="section-title">議題追蹤現況</h2>
+                <div id="analysis-tracking-list" class="loading">
+                    <div class="spinner"></div>
+                    <p>載入中...</p>
+                </div>
+            </div>
+
+            <!-- 頁腳 -->
+            <div class="footer">
+                <p>Made with ❤️ for Resident Meeting Tracking</p>
+                <div class="last-update">
+                    最後更新：<span id="analysis-update-time">-</span>
+                </div>
             </div>
         </div>
     </div>
@@ -430,7 +685,26 @@
         };
 
         let chartInstance = null;
+        let analysisChartInstance = null;
         let allData = null;
+
+        // 頁面切換
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function goToHome() {
+            showPage('home-page');
+        }
+
+        function goToAnalysis() {
+            showPage('analysis-page');
+            updateAnalysisPage();
+        }
 
         // 載入資料
         async function loadData() {
@@ -442,17 +716,17 @@
                 allData = data;
                 console.log('資料已載入:', data);
 
-                // 更新統計信息
+                // 更新首頁
                 updateStats(data);
-
-                // 更新圖表
                 updateChart(data);
-
-                // 更新追蹤列表
                 updateTrackingList(data);
-
-                // 更新時間戳
                 updateTimestamp();
+
+                // 更新分析頁面
+                updateAnalysisStats(data);
+                updateAnalysisChart(data);
+                updateAnalysisTrackingList(data);
+                updateAnalysisTimestamp();
             } catch (error) {
                 console.error('載入資料失敗:', error);
                 document.getElementById('tracking-list').innerHTML = 
@@ -460,7 +734,7 @@
             }
         }
 
-        // 更新統計卡片
+        // 首頁 - 更新統計卡片
         function updateStats(data) {
             if (!data.tracking || data.tracking.length === 0) return;
 
@@ -478,7 +752,7 @@
             document.getElementById('completed-count').textContent = completed;
         }
 
-        // 更新圖表
+        // 首頁 - 更新圖表
         function updateChart(data) {
             if (!data.tracking || data.tracking.length === 0) return;
 
@@ -528,7 +802,7 @@
             });
         }
 
-        // 更新追蹤列表
+        // 首頁 - 更新追蹤列表
         function updateTrackingList(data) {
             if (!data.tracking || data.tracking.length === 0) {
                 document.getElementById('tracking-list').innerHTML = '<p>暫無追蹤項目</p>';
@@ -563,11 +837,152 @@
             document.getElementById('tracking-list').innerHTML = html;
         }
 
+        // 分析頁面 - 更新統計卡片
+        function updateAnalysisStats(data) {
+            if (!data.tracking || data.tracking.length === 0) return;
+
+            const tracking = data.tracking;
+            const pending = tracking.filter(item => item.status === '待決議').length;
+            const inProgress = tracking.filter(item => item.status === '進行中').length;
+            const completed = tracking.filter(item => item.status === '已結案').length;
+            const total = tracking.length;
+            const completionRate = Math.round((completed / total) * 100);
+
+            document.getElementById('analysis-total').textContent = total;
+            document.getElementById('analysis-in-progress').textContent = inProgress;
+            document.getElementById('analysis-completed').textContent = completed;
+            document.getElementById('analysis-rate').textContent = completionRate + '%';
+        }
+
+        // 分析頁面 - 更新圖表
+        function updateAnalysisChart(data) {
+            if (!data.tracking || data.tracking.length === 0) return;
+
+            const tracking = data.tracking;
+            const categories = {};
+
+            tracking.forEach(item => {
+                const category = item.category || '其他';
+                categories[category] = (categories[category] || 0) + 1;
+            });
+
+            const ctx = document.getElementById('analysisChart').getContext('2d');
+            
+            if (analysisChartInstance) {
+                analysisChartInstance.destroy();
+            }
+
+            analysisChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(categories),
+                    datasets: [{
+                        label: '提案數',
+                        data: Object.values(categories),
+                        backgroundColor: COLORS.categories,
+                        borderRadius: 4,
+                        borderSkipped: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 2
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // 分析頁面 - 更新追蹤列表
+        function updateAnalysisTrackingList(data) {
+            if (!data.tracking || data.tracking.length === 0) {
+                document.getElementById('analysis-tracking-list').innerHTML = '<p>暫無追蹤項目</p>';
+                return;
+            }
+
+            const tracking = data.tracking;
+            const categories = {};
+
+            // 按類別分組
+            tracking.forEach(item => {
+                const category = item.category || '其他';
+                if (!categories[category]) {
+                    categories[category] = [];
+                }
+                categories[category].push(item);
+            });
+
+            let html = '';
+
+            Object.keys(categories).forEach(category => {
+                const items = categories[category];
+                html += `<div class="category-section">
+                    <div class="category-title">${category} (${items.length} 項)</div>`;
+
+                items.forEach((item, index) => {
+                    const statusClass = item.status === '待決議' ? 'pending' : 
+                                       item.status === '進行中' ? 'in-progress' : 'completed';
+                    const statusBadgeClass = item.status === '待決議' ? 'status-pending' : 
+                                            item.status === '進行中' ? 'status-in-progress' : 'status-completed';
+
+                    html += `
+                        <div class="tracking-item ${statusClass}">
+                            <div class="tracking-header">
+                                <div>
+                                    <span class="status-badge ${statusBadgeClass}">${item.status}</span>
+                                    <span>序號 ${index + 1}</span>
+                                </div>
+                            </div>
+                            <div class="tracking-title">${item.target}</div>
+                            <div class="tracking-proposer">提案者：${item.proposer}</div>
+                            ${item.pic ? `<div class="tracking-proposer">負責窗口：${item.pic}</div>` : ''}
+                            ${item.milestone ? `<div class="tracking-proposer">預計里程碑：${item.milestone}</div>` : ''}
+                            ${item.tracking_report ? `<div class="tracking-progress"><strong>追蹤進度：</strong>${item.tracking_report}</div>` : ''}
+                            ${item.resolution ? `<div class="tracking-progress"><strong>會議決議：</strong>${item.resolution}</div>` : ''}
+                            ${item.tracking_date ? `<div class="tracking-progress"><strong>追蹤日期：</strong>${item.tracking_date}</div>` : ''}
+                            ${item.closure_date ? `<div class="tracking-progress"><strong>結案日期：</strong>${item.closure_date}</div>` : ''}
+                        </div>
+                    `;
+                });
+
+                html += '</div>';
+            });
+
+            document.getElementById('analysis-tracking-list').innerHTML = html;
+        }
+
         // 更新時間戳
         function updateTimestamp() {
             const now = new Date();
             const timeString = now.toLocaleString('zh-TW');
             document.getElementById('last-update-time').textContent = timeString;
+        }
+
+        function updateAnalysisTimestamp() {
+            const now = new Date();
+            const timeString = now.toLocaleString('zh-TW');
+            document.getElementById('analysis-update-time').textContent = timeString;
+        }
+
+        // 更新分析頁面
+        function updateAnalysisPage() {
+            if (allData) {
+                updateAnalysisStats(allData);
+                updateAnalysisChart(allData);
+                updateAnalysisTrackingList(allData);
+                updateAnalysisTimestamp();
+            }
         }
 
         // 初始化
